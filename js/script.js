@@ -19,31 +19,9 @@ function renderData(data) {
   });
 }
 
-const url1 = 'http://localhost:8000/students';
+const url1 = 'https://studentapibackend.herokuapp.com/students';
 fetch(url1)
   .then((res) => res.json())
   .then((data) => renderData(data))
   .catch((error) => console.log(error));
 
-
-// store a student (POST studnet/store)
-
-// const url2 = 'http://localhost:8000/student/delete/'+id;
-// console.log(url2);
-console.log('non-blocking test');
-
-// fetch(url)
-// .then((resp) => resp.json())
-// .then(function(data) {
-//   console.log(data.studentname);
-
-//   let td = createNode('td');
-//   const tr = document.getElementById('students');
-//   td.innerHTML=`${data.studentname}`;
-//   append(tr, td);
-// })
-
-// .catch(function(error) {
-//   console.log('Here, error : ');
-//   console.log(error);
-// });
