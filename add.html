@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Add Student</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container p-3">
+        <h1>Add Student</h1>
+        <hr>
+        <form id="myForm">
+            <div class="mb-3">
+                <label for="studentName" class="form-label">Student Name</label>
+                <input type="text" class="form-control" id="studentName" placeholder="Enter Student Name"
+                    name="studentname">
+            </div>
+            <div class="mb-3">
+                <label for="course" class="form-label">Course Name</label>
+                <input type="text" class="form-control" id="course" placeholder="Enter Course Name" name="course">
+            </div>
+            <div class="mb-3">
+                <label for="fee" class="form-label">Course Fees</label>
+                <input type="text" class="form-control" id="fee" placeholder="Enter Fees" name="fee">
+            </div>
+            <button type="submit" class="btn btn-primary px-3 my-3">Save</button>
+        </form>
+    </div>
+
+    <script>
+        window.addEventListener("load", function () {
+            function sendData() {
+                const XHR = new XMLHttpRequest();
+
+                // Bind the FormData object and the form element
+                const FD = new FormData(form);
+
+                // Define what happens on successful data submission
+                XHR.addEventListener("load", function (event) {
+                    alert(event.target.responseText);
+                    window.location.href = "./index.html";
+                });
+
+                // Define what happens in case of error
+                XHR.addEventListener("error", function (event) {
+                    alert('Oops! Something went wrong.');
+                });
+
+                // Set up our request
+                XHR.open("POST", "http://localhost:8000/student/store");
+
+                // Json Stringify
+                var json = JSON.stringify(Object.fromEntries(FD));
+
+                // log
+                console.log(json);
+
+                // Setting the header type
+                XHR.setRequestHeader('Content-type', 'application/json');
+
+                // The data sent is what the user provided in the form
+                XHR.send(json);
+            }
+
+            // Access the form element...
+            const form = document.getElementById("myForm");
+
+            // ...and take over its submit event.
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+                sendData();
+            });
+        });
+    </script>
+</body>
+
+</html>
