@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <title>Add Student</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -27,42 +26,37 @@
                 <input type="text" class="form-control" id="fee" placeholder="Enter Fees" name="fee">
             </div>
             <button type="submit" class="btn btn-primary px-3 my-3">Save</button>
+            <a href="./index.html" type="button" class="btn btn-danger px-3 my-3">Home</a>
         </form>
     </div>
 
     <script>
+
         window.addEventListener("load", function () {
+
+            // using fetch api
             function sendData() {
-                const XHR = new XMLHttpRequest();
 
-                // Bind the FormData object and the form element
-                const FD = new FormData(form);
+                const json = JSON.stringify(Object.fromEntries(new FormData(form)));
 
-                // Define what happens on successful data submission
-                XHR.addEventListener("load", function (event) {
-                    alert(event.target.responseText);
-                    window.location.href = "./index.html";
-                });
+                fetch("http://localhost:8000/student/store", {
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: json
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        alert("Record Added!");
+                    }
+                    else {
+                        alert("Error!");
+                    }
+                })
 
-                // Define what happens in case of error
-                XHR.addEventListener("error", function (event) {
-                    alert('Oops! Something went wrong.');
-                });
-
-                // Set up our request
-                XHR.open("POST", "https://studentapibackend.herokuapp.com/student/store");
-
-                // Json Stringify
-                var json = JSON.stringify(Object.fromEntries(FD));
-
-                // log
-                console.log(json);
-
-                // Setting the header type
-                XHR.setRequestHeader('Content-type', 'application/json');
-
-                // The data sent is what the user provided in the form
-                XHR.send(json);
+                location.reload();
             }
 
             // Access the form element...
@@ -75,6 +69,8 @@
             });
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>
