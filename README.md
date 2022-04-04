@@ -1,5 +1,5 @@
 # StudentAPI_Frontend
-A simple HTML, CSS, JS frontend that hits studentapibackend (Backend of StudentAPI) and gets the results and also can performs CRUD operations on Students by hitting the API endpoints.
+A simple fully responsive HTML, CSS, JS frontend that hits Java Spring Boot Backend API (Backend of StudentAPI) and gets the results performing CRUD operations on Student (CREATE, READ, UPDATE, DELETE) with the help of Fetch API for seamless data transaction.
 
 ## Landing Page
 ![alt text](https://i.imgur.com/5VNJ4F8.jpg)
