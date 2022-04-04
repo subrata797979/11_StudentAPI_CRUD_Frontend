@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Add Student</title>
+    <title>Edit Student</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
 </head>
 
 <body>
     <div class="container p-3">
-        <h1>Add Student</h1>
+        <h1>Edit Student</h1>
         <hr>
         <form id="myForm">
             <div class="mb-3">
@@ -32,6 +32,30 @@
 
     <script>
 
+        const id = localStorage.getItem("sid")
+        console.log(id)
+        fetch("http://localhost:8000/student/"+id, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "GET",
+        })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            else {
+                alert("Error!");
+            }
+        })
+            .then((data) => {
+                // console.log(data)
+                document.getElementById("studentName").setAttribute("value",data.studentname)
+                document.getElementById("course").setAttribute("value",data.course)
+                document.getElementById("fee").setAttribute("value",data.fee)
+            })
+
         window.addEventListener("load", function () {
 
             // using fetch api
@@ -39,24 +63,24 @@
 
                 const json = JSON.stringify(Object.fromEntries(new FormData(form)));
 
-                fetch("http://localhost:8000/student/add", {
+                fetch("http://localhost:8000/student/modify/"+id, {
+                    mode: 'cors',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
-                    method: "POST",
+                    method: "PUT",
                     body: json
                 })
-                .then((response) => {
-                    if (response.ok) {
-                        alert("Record Added!");
-                    }
-                    else {
-                        alert("Error!");
-                    }
-                })
-
-                // location.reload();
+                    .then((response) => {
+                        if (response.ok) {
+                            alert("Record Modified!");
+                        }
+                        else {
+                            alert("Error!");
+                        }
+                    })
+                location.reload();
             }
 
             // Access the form element...
@@ -70,7 +94,9 @@
         });
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

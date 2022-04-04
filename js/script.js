@@ -1,5 +1,7 @@
 function editStudent(id) {
   console.log("Edit : "+id)
+  localStorage.setItem("sid", id)
+  window.location.href = "./edit.html"
 } 
 
 function deleteStudent(id) {
@@ -30,10 +32,10 @@ function deleteStudent(id) {
 function renderData(data) {
   data.forEach(d => {
     ddom = `<tr>
-              <td>${d.id}</td>
-              <td>${d.studentname}</td>
-              <td>${d.course}</td>
-              <td>${d.fee}</td>
+              <td class="id">${d.id}</td>
+              <td class="studentname">${d.studentname}</td>
+              <td class="course">${d.course}</td>
+              <td class="fee">${d.fee}</td>
               <td>
                 <button class="btn btn-warning" onclick="editStudent(${d.id})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
